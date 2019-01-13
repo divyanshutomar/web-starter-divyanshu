@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -35,6 +36,9 @@ const restCardStyles = (theme) => ({
   title: {
     display: 'flex',
     alignItems: 'center',
+    '&>a': {
+      textDecoration: 'none',
+    },
     '&>svg': {
       marginRight: theme.spacing.unit,
       color: blue[400]
@@ -83,6 +87,7 @@ class RestCard extends PureComponent {
   render() {
     const {
       classes,
+      id,
       image,
       title,
       description,
@@ -101,9 +106,11 @@ class RestCard extends PureComponent {
                 <div>
                   <div className={classes.title}>
                     <LocationOnIcon />
-                    <Typography variant="subtitle1" inline>
-                      {title}
-                    </Typography>
+                    <Link to={`/rest/${id}`}>
+                      <Typography variant="subtitle1" inline>
+                        {title}
+                      </Typography>
+                    </Link>
                   </div>
                   <Typography className={classes.description} variant="caption">
                     {description}
@@ -138,7 +145,7 @@ class RestCard extends PureComponent {
             <div className={classes.iconStat}>
               <WalkIcon />
               <Typography variant="caption" inline>
-              6min
+                6min
               </Typography>
             </div>
             <div className={classes.iconStat}>

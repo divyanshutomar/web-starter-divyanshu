@@ -31,10 +31,11 @@ const RestListView = ({ classes, restaurants }) => {
         Foodsy
       </Typography>
       <div className={classes.restListContainer}> {restaurants.map((rest) => {
-        const distance = Number((rest.distance).toFixed(1));
+        const distance = Number((rest.distance || 0).toFixed(1));
         return (
           <RestCard
             key={rest.id}
+            id={rest.id}
             description={rest.description}
             title={rest.title}
             image={getRestaurantImage(rest.images)}
