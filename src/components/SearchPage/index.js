@@ -38,7 +38,11 @@ class SearchPage extends Component {
           return (
             <Grid container>
               <Grid item md={4} sm={12}><RestListView restaurants={restaurants} /></Grid>
-              <Hidden smDown><Grid item md={8}><RestMapView /></Grid></Hidden>
+              <Hidden smDown>
+                <Grid item md={8}>
+                  <RestMapView restaurants={restaurants} />
+                </Grid>
+              </Hidden>
               {/* {data.search_restaurants.results.map((r) => {
                 return <div>{r.title} ({r.id})</div>;
               })} */}

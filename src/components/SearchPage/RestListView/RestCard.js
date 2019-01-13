@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react';
 import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
@@ -22,7 +21,7 @@ const restCardStyles = (theme) => ({
     borderRadius: theme.spacing.unit * 3
   },
   restImage: {
-    height: '100%',
+    width: '30%',
     '&>img': {
       width: '100%',
       height: '100%'
@@ -32,6 +31,7 @@ const restCardStyles = (theme) => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
+    width: '70%'
   },
   title: {
     display: 'flex',
@@ -100,39 +100,33 @@ class RestCard extends PureComponent {
     return (
       <div className={classes.root}>
         <Card className={classes.card}>
-          <Grid container>
-            <Grid item xs={8}>
-              <CardContent className={classes.content}>
-                <div>
-                  <div className={classes.title}>
-                    <LocationOnIcon />
-                    <Link to={`/rest/${id}`}>
-                      <Typography variant="subtitle1" inline>
-                        {title}
-                      </Typography>
-                    </Link>
-                  </div>
-                  <Typography className={classes.description} variant="caption">
-                    {description}
+          <CardContent className={classes.content}>
+            <div>
+              <div className={classes.title}>
+                <LocationOnIcon />
+                <Link to={`/rest/${id}`}>
+                  <Typography variant="subtitle1" inline>
+                    {title}
                   </Typography>
-                </div>
-                <div className={classes.featuredText}>
-                  <StarIcon />
-                  <Typography variant="caption" inline>
-                    {featuredText}
-                  </Typography>
-                </div>
-              </CardContent>
-            </Grid>
-            <Grid item xs={4}>
-              <div className={classes.restImage}>
-                <img
-                  src={image}
-                  alt={title}
-                />
+                </Link>
               </div>
-            </Grid>
-          </Grid>
+              <Typography className={classes.description} variant="caption">
+                {description}
+              </Typography>
+            </div>
+            <div className={classes.featuredText}>
+              <StarIcon />
+              <Typography variant="caption" inline>
+                {featuredText}
+              </Typography>
+            </div>
+          </CardContent>
+          <div className={classes.restImage}>
+            <img
+              src={image}
+              alt={title}
+            />
+          </div>
 
         </Card>
         <div className={classes.restCardFooter}>
