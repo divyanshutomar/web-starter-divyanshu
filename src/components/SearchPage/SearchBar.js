@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
@@ -29,17 +29,50 @@ const searchBarStyles = (theme) => ({
   },
 });
 
-const SearchBar = ({ classes }) => {
-  return (
-    <Paper className={classes.root} elevation={1}>
+class SearchBar extends Component {
+  state = { inputValue: '' }
 
-      <IconButton className={classes.iconButton} aria-label="Search">
-        <SearchIcon />
-      </IconButton>
-      <Divider className={classes.divider} />
-      <InputBase fullWidth className={classes.input} placeholder="Search food in your area..." />
-    </Paper>
-  );
-};
+  handleInputChange = (ev) => {
+    this.setState({
+      inputValue: ev.target.value
+    });
+  }
+
+  handleInputKeyDown = (ev) => {
+    if (ev.keyCode === 13) {
+      this.triggerSearch();
+    }
+  }
+
+  triggerSearch = () => {
+    const { inputValue } = this.state;
+    const { handleLocationSearch } = this.props;
+    if (inputValue) {
+      handleLocationSearch(inputValue);
+    }
+  }
+
+  render() {
+    const { classes } = this.props;
+    const { inputValue } = this.state;
+    return (
+      <Paper className={classes.root} elevation={1}>
+        <IconButton onClick={this.triggerSearch} className={classes.iconButton} aria-label="Search">
+          <SearchIcon />
+        </IconButton>
+        <Divider className={classes.divider} />
+        <InputBase
+          onKeyDown={this.handleInputKeyDown}
+          value={inputValue}
+          onChange={this.handleInputChange}
+          fullWidth
+          className={classes.input}
+          placeholder="Search food in your area..."
+        />
+      </Paper>
+    );
+  }
+}
+
 
 export default withStyles(searchBarStyles)(SearchBar);

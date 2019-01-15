@@ -3,7 +3,6 @@ import Fab from '@material-ui/core/Fab';
 import { withStyles } from '@material-ui/core/styles';
 import GoogleMapReact from 'google-map-react';
 import RestaurantMarker from './RestaurantMarker';
-import SearchBar from '../SearchBar';
 
 const restMapViewStyles = (theme) => ({
   root: {
@@ -33,18 +32,18 @@ const restMapViewStyles = (theme) => ({
 });
 
 
-const RestMapView = ({ classes, restaurants }) => {
-  let defaultCenter = null;
+const RestMapView = ({ classes, restaurants, renderSearchInput }) => {
+  let center = null;
   if (restaurants.length) {
     const { lat, lon } = restaurants[0];
-    defaultCenter = {
+    center = {
       lat, lng: lon
     };
   }
   return (
     <div className={classes.root}>
       <div className={classes.mapHeader}>
-        <span><SearchBar /></span>
+        <span>{renderSearchInput()}</span>
         <span className={classes.loginSignupContainer}>
           <Fab variant="extended" aria-label="Delete" className={classes.fab}>
             Login
@@ -54,11 +53,11 @@ const RestMapView = ({ classes, restaurants }) => {
           </Fab>
         </span>
       </div>
-      {defaultCenter && (
+      {center && (
         <GoogleMapReact
           // bootstrapURLKeys={{ key: /*API KEY HERE */'' }}
-          defaultCenter={defaultCenter}
-          defaultZoom={14}
+          center={center}
+          defaultZoom={11}
         >
           {restaurants.map((rest) => (
             <RestaurantMarker

@@ -6,20 +6,26 @@ import Hidden from '@material-ui/core/Hidden';
 import { RESTAURANT_SEARCH_QUERY } from '../../graphql/queries';
 import RestListView from './RestListView';
 import RestMapView from './RestMapView';
+import SearchBar from './SearchBar';
+
 
 class SearchPage extends Component {
   state = {
     searchInput: 'Chicago'
   }
 
-  handleSearchInputChange = (ev, val) => {
+  handleLocationSearch = (value) => {
     this.setState({
-      searchInput: val
+      searchInput: value
     });
   }
 
-  triggerSearchForInputVal = () => {
-    console.log('Test');
+  renderSearchInput = () => {
+    return (
+      <SearchBar
+        handleLocationSearch={this.handleLocationSearch}
+      />
+    );
   }
 
   render() {
@@ -51,11 +57,17 @@ class SearchPage extends Component {
           return (
             <Grid container>
               <Grid item md={4} sm={12}>
-                <RestListView restaurants={restaurants} />
+                <RestListView
+                  renderSearchInput={this.renderSearchInput}
+                  restaurants={restaurants}
+                />
               </Grid>
               <Hidden smDown>
                 <Grid item md={8}>
-                  <RestMapView restaurants={restaurants} />
+                  <RestMapView
+                    renderSearchInput={this.renderSearchInput}
+                    restaurants={restaurants}
+                  />
                 </Grid>
               </Hidden>
             </Grid>
