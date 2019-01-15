@@ -94,7 +94,8 @@ class RestCard extends PureComponent {
       featuredText,
       distance,
       openClose,
-      rating
+      rating,
+      minsAway
     } = this.props;
     const bull = <span className={classes.bullet}>•</span>;
     return (
@@ -139,7 +140,7 @@ class RestCard extends PureComponent {
             <div className={classes.iconStat}>
               <WalkIcon />
               <Typography variant="caption" inline>
-                6min
+                {minsAway} mins
               </Typography>
             </div>
             <div className={classes.iconStat}>
