@@ -5,6 +5,10 @@ This is the world's best food App.
 - Clone the code from the repo
 - Run `npm i` to install packages
 
+## Running and Building
+- Run `npm run start` to start the app in development mode.
+- Run `npm run build` to build a production ready static bundle.
+
 ## Other Instructions
 - Please complete the tickets you've been assigned
 - Use separate branches for each ticket

@@ -18,6 +18,12 @@ const styles = (theme) => ({
   },
   iconBtn: {
     marginRight: theme.spacing.unit
+  },
+  myLocationBtn: {
+    backgroundColor: 'rgb(255,215,0)',
+    '&:hover': {
+      backgroundColor: 'rgb(255,215,0)'
+    }
   }
 });
 
@@ -63,7 +69,13 @@ class SearchPage extends Component {
   renderMyLocationButton = () => {
     const { classes } = this.props;
     return (
-      <Fab variant="extended" aria-label="Delete" onClick={this.fetchUserCurrentLocation} className={classes.fab}>
+      <Fab
+        variant="extended"
+        aria-label="Delete"
+        onClick={this.fetchUserCurrentLocation}
+        className={classes.fab}
+        classes={{ root: classes.myLocationBtn }}
+      >
         <PinIcon className={classes.iconBtn} />
         Use My Location
       </Fab>
@@ -88,10 +100,6 @@ class SearchPage extends Component {
           if (loading) {
             return <CircularProgress />;
           }
-
-          console.log('DO SOMETHING SMART WITH THIS DATA');
-          console.log('data', data);
-          console.log('error', error);
           let restaurants = [];
           // Make sure we have data
           if (

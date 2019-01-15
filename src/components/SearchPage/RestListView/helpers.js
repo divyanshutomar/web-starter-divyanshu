@@ -14,3 +14,9 @@ export const getRestaurantImage = (images) => {
   }
   return image;
 };
+
+export const minsAwayFromDistance = (distance) => {
+  const distanceInMeters = distance * 1609.34; // m
+  const avgWalkingSpeed = 1.4; // m/s
+  return Math.round((distanceInMeters / avgWalkingSpeed) / 60); // in minutes
+};

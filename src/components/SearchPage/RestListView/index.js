@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import blue from '@material-ui/core/colors/blue';
 import Hidden from '@material-ui/core/Hidden';
 import RestCard from './RestCard';
-import { getFeaturedText, getRestaurantImage } from './helpers';
+import { getFeaturedText, getRestaurantImage, minsAwayFromDistance } from './helpers';
 
 const restListViewStyles = (theme) => ({
   appLogo: {
@@ -64,6 +64,7 @@ const RestListView = ({
             openClose={rest.open_closed}
             distance={distance}
             rating={rest.rating}
+            minsAway={minsAwayFromDistance(distance)}
           />
         );
       })}

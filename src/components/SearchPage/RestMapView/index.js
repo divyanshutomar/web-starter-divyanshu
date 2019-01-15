@@ -32,6 +32,20 @@ const restMapViewStyles = (theme) => ({
   searchLocationContainer: {
     display: 'flex',
     flex: 1
+  },
+  transparentBtn: {
+    color: '#fff',
+    backgroundColor: 'rgba(255,255,255,0.3)',
+    '&:hover': {
+      backgroundColor: 'rgba(255,255,255,0.3)'
+    }
+  },
+  signupBtn: {
+    color: '#000',
+    backgroundColor: '#fff',
+    '&:hover': {
+      backgroundColor: '#fff',
+    }
   }
 });
 
@@ -63,10 +77,10 @@ const RestMapView = ({
           {renderSearchInput()}
         </span>
         <span className={classes.loginSignupContainer}>
-          <Fab variant="extended" aria-label="Delete" className={classes.fab}>
+          <Fab variant="extended" aria-label="Delete" className={classes.fab} classes={{ root: classes.transparentBtn }}>
             Login
           </Fab>
-          <Fab variant="extended" aria-label="Delete" className={classes.fab}>
+          <Fab variant="extended" aria-label="Delete" className={classes.fab} classes={{ root: classes.signupBtn }}>
             SignUp
           </Fab>
         </span>
@@ -75,7 +89,7 @@ const RestMapView = ({
         <GoogleMapReact
           // bootstrapURLKeys={{ key: /*API KEY HERE */'' }}
           center={center}
-          defaultZoom={8}
+          defaultZoom={13}
         >
           {currentLocation
             && (
