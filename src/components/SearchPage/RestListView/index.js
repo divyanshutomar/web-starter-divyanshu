@@ -21,10 +21,21 @@ const restListViewStyles = (theme) => ({
   restListContainer: {
     overflow: 'scroll',
     maxHeight: '90vh'
+  },
+  searchContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center'
   }
 });
 
-const RestListView = ({ classes, restaurants, renderSearchInput }) => {
+const RestListView = ({
+  classes,
+  restaurants,
+  renderSearchInput,
+  renderMyLocationButton,
+  resultString
+}) => {
   console.log(restaurants);
   return (
     <div className={classes.rootContainer}>
@@ -32,10 +43,14 @@ const RestListView = ({ classes, restaurants, renderSearchInput }) => {
         Foodsy
       </Typography>
       <Hidden mdUp>
-        <div>
+        <div className={classes.searchContainer}>
+          {renderMyLocationButton()}
           {renderSearchInput()}
         </div>
       </Hidden>
+      <Typography variant="overline" gutterBottom>
+        {resultString}
+      </Typography>
       <div className={classes.restListContainer}> {restaurants.map((rest) => {
         const distance = Number((rest.distance || 0).toFixed(1));
         return (

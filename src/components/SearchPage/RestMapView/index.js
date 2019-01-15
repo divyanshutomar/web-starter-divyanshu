@@ -2,6 +2,8 @@ import React from 'react';
 import Fab from '@material-ui/core/Fab';
 import { withStyles } from '@material-ui/core/styles';
 import GoogleMapReact from 'google-map-react';
+import PinIcon from '@material-ui/icons/PersonPinCircle';
+import Tooltip from '@material-ui/core/Tooltip';
 import RestaurantMarker from './RestaurantMarker';
 
 const restMapViewStyles = (theme) => ({
@@ -20,19 +22,32 @@ const restMapViewStyles = (theme) => ({
     position: 'absolute',
     top: 0,
     zIndex: 500,
-    '&>span': {
-      width: '45%'
-    }
   },
   loginSignupContainer: {
     marginRight: theme.spacing.unit * 6,
     display: 'flex',
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
+    // width: '40%'
+  },
+  searchLocationContainer: {
+    display: 'flex',
+    flex: 1
   }
 });
 
+const YouMarker = () => (
+  <Tooltip title="You">
+    <PinIcon />
+  </Tooltip>
+);
 
-const RestMapView = ({ classes, restaurants, renderSearchInput }) => {
+const RestMapView = ({
+  classes,
+  restaurants,
+  renderSearchInput,
+  renderMyLocationButton,
+  currentLocation
+}) => {
   let center = null;
   if (restaurants.length) {
     const { lat, lon } = restaurants[0];
@@ -43,7 +58,10 @@ const RestMapView = ({ classes, restaurants, renderSearchInput }) => {
   return (
     <div className={classes.root}>
       <div className={classes.mapHeader}>
-        <span>{renderSearchInput()}</span>
+        <span className={classes.searchLocationContainer}>
+          {renderMyLocationButton()}
+          {renderSearchInput()}
+        </span>
         <span className={classes.loginSignupContainer}>
           <Fab variant="extended" aria-label="Delete" className={classes.fab}>
             Login
@@ -57,8 +75,12 @@ const RestMapView = ({ classes, restaurants, renderSearchInput }) => {
         <GoogleMapReact
           // bootstrapURLKeys={{ key: /*API KEY HERE */'' }}
           center={center}
-          defaultZoom={11}
+          defaultZoom={8}
         >
+          {currentLocation
+            && (
+              <YouMarker lat={currentLocation.lat} lng={currentLocation.lon} />
+            )}
           {restaurants.map((rest) => (
             <RestaurantMarker
               key={rest.id}
