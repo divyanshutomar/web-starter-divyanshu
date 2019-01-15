@@ -13,7 +13,8 @@ const searchBarStyles = (theme) => ({
     display: 'flex',
     alignItems: 'center',
     borderRadius: theme.spacing.unit * 3,
-    margin: theme.spacing.unit
+    margin: theme.spacing.unit,
+    width: '100%'
   },
   iconButton: {
     padding: 10,
