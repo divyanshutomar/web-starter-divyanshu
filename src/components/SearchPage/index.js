@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import { Query } from 'react-apollo';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
@@ -9,14 +8,28 @@ import RestListView from './RestListView';
 import RestMapView from './RestMapView';
 
 class SearchPage extends Component {
+  state = {
+    searchInput: 'Chicago'
+  }
+
+  handleSearchInputChange = (ev, val) => {
+    this.setState({
+      searchInput: val
+    });
+  }
+
+  triggerSearchForInputVal = () => {
+    console.log('Test');
+  }
+
   render() {
+    const { searchInput } = this.state;
+    const queryVariables = { address: searchInput };
     return (
       // Variables can be either lat and lon OR address
       <Query
         query={RESTAURANT_SEARCH_QUERY}
-        variables={{
-          address: 'Chicago'
-        }}
+        variables={queryVariables}
       >
         {({ loading, error, data = {} }) => {
           if (loading) {
@@ -37,15 +50,14 @@ class SearchPage extends Component {
           }
           return (
             <Grid container>
-              <Grid item md={4} sm={12}><RestListView restaurants={restaurants} /></Grid>
+              <Grid item md={4} sm={12}>
+                <RestListView restaurants={restaurants} />
+              </Grid>
               <Hidden smDown>
                 <Grid item md={8}>
                   <RestMapView restaurants={restaurants} />
                 </Grid>
               </Hidden>
-              {/* {data.search_restaurants.results.map((r) => {
-                return <div>{r.title} ({r.id})</div>;
-              })} */}
             </Grid>
           );
         }}
